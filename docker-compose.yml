@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  rupeemate:
+    build: .
+    container_name: rupeemate-app
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=production-secure-random-key-change-me
+      - DATABASE_URL=sqlite:///instance/student_finance.db
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - rupeemate_data:/app/instance
+      - rupeemate_uploads:/app/static/uploads
+    restart: unless-stopped
+
+volumes:
+  rupeemate_data:
+  rupeemate_uploads:
